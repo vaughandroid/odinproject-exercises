@@ -23,48 +23,79 @@
             return input[0].toUpperCase() + input.slice(1).toLowerCase();
         }
 
-        function playRound(playerSelection, computerSelection) {
-            let normalisedPlayerSelection = normaliseCase(playerSelection);
-            
-            let winner = "draw";
-            if (normalisedPlayerSelection === "Rock") {
-                if (computerSelection === "Scissors") {
-                    winner = "player";
-                } else if (computerSelection === "Paper") {
-                    winner = "computer";
-                }
-            } else if (normalisedPlayerSelection === "Paper") {
-                if (computerSelection === "Rock") {
-                    winner = "player";
-                } else if (computerSelection === "Scissors") {
-                    winner = "computer";
+        function decideWinner(playerSelection, computerSelection) {
+            let winner = 'draw';
+            if (playerSelection === 'Rock') {
+                if (computerSelection === 'Scissors') {
+                    winner = 'player';
+                } else if (computerSelection === 'Paper') {
+                    winner = 'computer';
+                }   
+            } else if (playerSelection === 'Paper') {
+                if (computerSelection === 'Rock') {
+                    winner = 'player';
+                } else if (computerSelection === 'Scissors') {
+                    winner = 'computer';
                 }
             } else { // Scissors
-                if (computerSelection === "Paper") {
-                    winner = "player";
-                } else if (computerSelection === "Rock") {
-                    winner = "computer";
+                if (computerSelection === 'Paper') {
+                    winner = 'player';
+                } else if (computerSelection === 'Rock') {
+                    winner = 'computer';
                 }
             }
+            return winner;
+        }
+
+        function playRound() {
+            const playerSelection = prompt('Rock, Paper, or Scissors?');
+            const normalisedPlayerSelection = normaliseCase(playerSelection);
+
+            const computerSelection = computerPlay();
+
+            const winner = decideWinner(normalisedPlayerSelection, computerSelection);
 
             let result;
             switch (winner) {
-                case "player":
+                case 'player':
                     result = `You Win! ${normalisedPlayerSelection} beats ${computerSelection}`;
                     break;
-                case "computer":
+                case 'computer':
                     result = `You Lose! ${computerSelection} beats ${normalisedPlayerSelection}`;
                     break;
-                case "draw":
+                case 'draw':
                     result = 'Draw!';
                     break;
             }
-            return result;
+            console.log(result);
+
+            return winner;
         }
 
-        const playerSelection = 'paper';
-        const computerSelection = computerPlay();
-        console.log(playRound(playerSelection, computerSelection));
+        function game() {
+            let playerWinCount = 0;
+            let computerWinCount = 0;
+            let drawCount = 0;
+
+            for (let i = 0; i < 5; i++) {
+                const winner = playRound();
+                switch(winner) {
+                    case 'player':
+                        playerWinCount++;
+                        break;
+                    case 'computer':
+                        computerWinCount++;
+                        break;
+                    case 'draw':
+                        drawCount++;
+                        break;
+                }
+            }
+
+            console.log(`Final results: Player won ${playerWinCount}, computer won ${computerWinCount}, and ${drawCount} draw(s).`)
+        }
+
+        game();
     </script>
 </body>
 
