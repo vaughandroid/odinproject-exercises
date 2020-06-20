@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8">
+</head>
+
+<body>
+    <script>
+        function random(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        function computerPlay() {
+            switch(random(3)) {
+                case 0: return 'Rock';
+                case 1: return 'Paper';
+                case 2: return 'Scissors';
+            }
+        }
+
+        function normaliseCase(input) {
+            return input[0].toUpperCase() + input.slice(1).toLowerCase();
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            let normalisedPlayerSelection = normaliseCase(playerSelection);
+            
+            let winner = "draw";
+            if (normalisedPlayerSelection === "Rock") {
+                if (computerSelection === "Scissors") {
+                    winner = "player";
+                } else if (computerSelection === "Paper") {
+                    winner = "computer";
+                }
+            } else if (normalisedPlayerSelection === "Paper") {
+                if (computerSelection === "Rock") {
+                    winner = "player";
+                } else if (computerSelection === "Scissors") {
+                    winner = "computer";
+                }
+            } else { // Scissors
+                if (computerSelection === "Paper") {
+                    winner = "player";
+                } else if (computerSelection === "Rock") {
+                    winner = "computer";
+                }
+            }
+
+            let result;
+            switch (winner) {
+                case "player":
+                    result = `You Win! ${normalisedPlayerSelection} beats ${computerSelection}`;
+                    break;
+                case "computer":
+                    result = `You Lose! ${computerSelection} beats ${normalisedPlayerSelection}`;
+                    break;
+                case "draw":
+                    result = 'Draw!';
+                    break;
+            }
+            return result;
+        }
+
+        const playerSelection = 'paper';
+        const computerSelection = computerPlay();
+        console.log(playRound(playerSelection, computerSelection));
+    </script>
+</body>
+
+</html>
