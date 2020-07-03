@@ -3,17 +3,21 @@ window.onload = () => {
 }
 
 function createGrid() {
-  const rows = 4;
+  const rows = 16;
   const columns = rows;
 
   container = document.querySelector('#grid-container');
   container.style.display = 'grid';
-  container.style.gridTemplateColumns = '25% 25% 25% 25%';
+  let columnsStyle = '';
+  for (let i = 0; i < columns; i++) {
+    columnsStyle += 'auto '
+  }
+  container.style.gridTemplateColumns = columnsStyle;
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       let squareDiv = document.createElement('div');
-      squareDiv.textContent = `row ${i} column ${j}`
+      squareDiv.textContent = `(${i}, ${j})`
       container.appendChild(squareDiv);
     }
   }
