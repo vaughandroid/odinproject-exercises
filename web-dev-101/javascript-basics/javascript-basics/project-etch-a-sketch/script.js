@@ -17,6 +17,10 @@ function createGrid() {
     for (let j = 0; j < columns; j++) {
       let squareDiv = document.createElement('div');
       squareDiv.style.border = '0.5px solid black';
+      squareDiv.addEventListener('mouseover', () => { 
+        console.log(`mouseover (${j}, ${i})`) 
+        squareDiv.style.background = 'black';
+      })
       container.appendChild(squareDiv);
     }
   }
