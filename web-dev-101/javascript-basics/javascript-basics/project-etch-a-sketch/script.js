@@ -3,25 +3,26 @@ window.onload = () => {
 }
 
 function createGrid() {
+  const gridSize = 500;
   const rows = 16;
   const columns = rows;
-  const squareSize = '30px';
+  const squareSize = `${gridSize / rows}px`;
 
-  container = document.querySelector('#grid-container');
-  container.style.display = 'inline-grid';
-  container.style.gridTemplateColumns = `repeat(${columns}, ${squareSize})`;
-  container.style.gridTemplateRows = `repeat(${rows}, ${squareSize})`;
-  container.style.border = '2px solid black';
+  grid = document.querySelector('#grid');
+  grid.style.display = 'grid'; 
+  grid.style.margin = '0 auto';
+  grid.style.border = '2px solid black';
+  grid.style.width = `${gridSize + 4}px`;
+  grid.style.gridTemplateColumns = `repeat(${columns}, ${squareSize})`;
+  grid.style.gridTemplateRows = `repeat(${rows}, ${squareSize})`;
   
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       let squareDiv = document.createElement('div');
-      squareDiv.style.border = '0.5px solid black';
-      squareDiv.addEventListener('mouseover', () => { 
-        console.log(`mouseover (${j}, ${i})`) 
+        squareDiv.addEventListener('mouseover', () => { 
         squareDiv.style.background = 'black';
       })
-      container.appendChild(squareDiv);
+      grid.appendChild(squareDiv);
     }
   }
 }
