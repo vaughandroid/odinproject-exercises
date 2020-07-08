@@ -1,0 +1,24 @@
+body {
+  font-size: xx-large;
+  font-family: monospace;
+}
+
+button {
+  width: 95px;
+  height: 95px;
+  font-size: xx-large;
+  font-family: monospace;
+}
+
+#calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(5, 100px);
+}
+
+#display {
+  margin: auto;
+  font-size: larger;
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
