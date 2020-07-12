@@ -11,6 +11,8 @@ window.onload = () => {
   });
   document.querySelectorAll('.operator').forEach(btn => {
     btn.addEventListener('click', () => {
+      if (!currentInputValue) return;
+      
       let newValue = Number(currentInputValue);
       if (operator && lastNumber) {
         newValue = operate(operator, lastNumber, newValue);
@@ -23,6 +25,9 @@ window.onload = () => {
   });
   document.querySelector('#equals').addEventListener('click', () => {
     equals();
+  });
+  document.querySelector('#clear').addEventListener('click', () => {
+    clear();
   });
 
   clear();
@@ -74,7 +79,15 @@ function divide(a, b) {
 }
 
 function equals() {
+  let newValue = Number(currentInputValue);
+  if (operator && lastNumber) {
+    newValue = operate(operator, lastNumber, newValue);
+    setDisplayValue(newValue);
+  }
 
+  operator = null;
+  lastNumber = newValue;
+  currentInputValue = null;
 }
 
 function clear() {
