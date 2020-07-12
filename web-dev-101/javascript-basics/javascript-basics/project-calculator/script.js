@@ -1,35 +1,57 @@
+let displayValue;
+let currentInputValue;
+let lastNumber;
+let operator;
+
 window.onload = () => {
-  document.querySelectorAll('.number').forEach((btn) => {
+  document.querySelectorAll('.number').forEach(btn => {
     btn.addEventListener('click', () => {
       numberPressed(+btn.textContent);
     });
   });
+  document.querySelectorAll('.operator').forEach(btn => {
+    btn.addEventListener('click', () => {
+      let newValue = Number(currentInputValue);
+      if (operator && lastNumber) {
+        newValue = operate(operator, lastNumber, newValue);
+        setDisplayValue(newValue);
+      }
+      operator = btn.textContent;
+      lastNumber = newValue;
+      currentInputValue = null;
+    });
+  });
+  document.querySelector('#equals').addEventListener('click', () => {
+    equals();
+  });
 
-  setCurrentValue(0);
+  clear();
 }
 
 function numberPressed(n) {
-  if (currentValue === 0) {
-    setCurrentValue(n);
+  if (currentInputValue) {
+    currentInputValue = currentInputValue + '' + n;
   } else {
-    setCurrentValue(currentValue + '' + n);
+    currentInputValue = '' + n;
   }
+  setDisplayValue(currentInputValue);
 }
 
-function setCurrentValue(v) {
+function setDisplayValue(v) {
   document.querySelector('#display').textContent = v;
-  currentValue = v;
+  displayValue = v;
 }
 
 function operate(operator, a, b) {
+  console.log(`operate ${operator} ${a} ${b}`)
   switch (operator) {
-    case "+":
+    case '+':
       return add(a, b);
-    case "-":
+    case '-':
       return subtract(a, b);
-    case "x":
+    case 'x':
       return multiply(a, b);
-    case "/":
+    case '/':
       return divide(a, b);
   }
 }
@@ -47,5 +69,18 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+  if (b === 0) return NaN;
   return a / b;
+}
+
+function equals() {
+
+}
+
+function clear() {
+  currentInputValue = null;
+  lastNumber = null;
+  operator = null;
+
+  setDisplayValue('');
 }
